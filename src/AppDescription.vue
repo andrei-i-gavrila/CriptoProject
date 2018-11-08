@@ -1,6 +1,6 @@
 <template>
   <v-layout row align-center justify-center>
-    The affine cipher shifts each letter in the input with the following formula d(x) = ax + b
+    <h2>The affine cipher shifts each letter in the input with the following formula d(x) = ax + b</h2>
   </v-layout>
 
 </template>
