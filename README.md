@@ -4,9 +4,9 @@ ElGamal encryption system is an asymmetric key encryption algorithm for public-k
 ### How to use?
 1. When the page is first loaded, you will see a screen having multiple texts and buttons that are disabled.
 2. To acctualy make the app work, you need to give a public key which is formed by a generator g, a private key a, and a private key k.
-3. You can manually add them, one after another, or push the center button *ALL RANDOM* which will generate random values for p,g,a,and k.
-4.After having the public and private numbers, you will be able to enter text for decryption or encryption.
-5. The text will be automatically computed and updated the moment it entered.
+3. You can manually add them, one by one, or push the center button *ALL RANDOM*, which will generate random values for p,g,a,and k.
+4. After having the public and private numbers, you will be able to enter text for decryption or encryption.
+5. The text will be automatically computed and updated the moment you .
 6. You can encrypt and decrypt a text using the same key. Changing the key will result into having an undefined result.
 
 ### Functions used:
@@ -27,3 +27,17 @@ ElGamal encryption system is an asymmetric key encryption algorithm for public-k
 1. *encrypt(text,p,g,ga,k)* - encrypts a given text having access to the public key (p,g,ga mod p). Computes alpha and beta for each letter and  the cipher text will be the result of alpha number tranformed into letters, and beta number transformed into letters
 2. *decrypt(text,p,g,ga,a)* - decrypts a given text gaving acces to the public key (p,g,ga mod p). Gets the text and splits is so that it takes alpha and beta that are encrypted into 2 caracters each. After having alpha and beta it can preceed with the final computation => gets plain text.
 
+## Algorithm
+* Key Generation - create a public key and a private key
+          1. Generate a large random prime *p* and a generator *g*
+          2. Select a random integer *a* 0 < k < p-1
+          3. Compute (g^a) mod p
+          4. The public key is (p,g,g^a mod p) and the private key is a
+* Encryption
+          1. Get the public key (p,g,g^a mod p)
+          2. Represent the message (text) as a sequence of numbers m between 0 and p-1
+          3. Select a random *k* 0 < k < p-1
+          4. Compute alpha and beta: alpha = g^k mod p, beta = m*(m^a)^k mod p
+          5. Cipher test is the transformation of alpha into letters and beta into letters (each having an encryption length)
+* Decryption 
+          1. Use the private key *a* to get the sequence of messages m such as: m = (alpha^(p-1-a)) * beta mod p
