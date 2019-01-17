@@ -1,27 +1,13 @@
-# Affine cipher documentation
+# El Gamal documentation
+ElGamal encryption system is an asymmetric key encryption algorithm for public-key cryptography which is based on the Diffie–Hellman key exchange. The system provides an additional layer of security by asymmetrically encrypting keys previously used for symmetric message encryption.
 
-The affine cipher related functions are implemented in the affineCipher.js file.
-
-The getDecryptionKey takes an object containing a and b.
-It will use the extended euclid algorithm implemented in math.js(external library) to calculate a^-1 (mod n) and check if gcd(a, n) == 1
-Then it returns back the decryption key.
-
-The encrypt function takes the plaintext and the a,b pair.
-First it handles the empty string case separately and returns an error if any character is not in the alphabet.
-Finally it applies the cipher and returns the ciphertext.
-The return will still be lowercase and the representation in UPPERCASE is made strictly at display time.
-You can also use this function to decrypt the cipher text by passing in the decryption key instead of the encryption key.
-
-The app itself consists of 2 textareas(plain text, ciphertext), 2 text inputs(encryption key, decryption key) and 2 buttons (encrypt, decrypt)
-The encryption key will be initially set to (4,7). Whenever you update the input, it validates the key and calculates the decryption key.
-When you update the decryption key, the encryption key will be automatically updated.
-
-When you enter text in the left text area(plaintext) the right text area(ciphertext) will be automatically computed with the given encryption key.
-It updates live and if you enter a wrong character, an error will pop up.
-The reverse happens for the cipher text area.
-
-The encrypt and decrypt buttons are there just in case you feel the need to press something, to make sure the result is correct.
-The text should always be updated no matter what way you choose to input the text (paste it in, enter it manually)
+### How to use?
+1. When the page is first loaded, you will see a screen having multiple texts and buttons that are disabled.
+2. To acctualy make the app work, you need to give a public key which is formed by a generator g, a private key a, and a private key k.
+3. You can manually add them, one after another, or push the center button *ALL RANDOM* which will generate random values for p,g,a,and k.
+4.After having the public and private numbers, you will be able to enter text for decryption or encryption.
+5. The text will be automatically computed and updated the moment it entered.
+6. You can encrypt and decrypt a text using the same key. Changing the key will result into having an undefined result.
 
 ### Functions used:
 * **Utils** 
@@ -41,10 +27,3 @@ The text should always be updated no matter what way you choose to input the tex
 1. *encrypt(text,p,g,ga,k)* - encrypts a given text having access to the public key (p,g,ga mod p). Computes alpha and beta for each letter and  the cipher text will be the result of alpha number tranformed into letters, and beta number transformed into letters
 2. *decrypt(text,p,g,ga,a)* - decrypts a given text gaving acces to the public key (p,g,ga mod p). Gets the text and splits is so that it takes alpha and beta that are encrypted into 2 caracters each. After having alpha and beta it can preceed with the final computation => gets plain text.
 
-### How to use?
-1. When the page is first loaded, you will see a screen having multiple texts and buttons that are disabled.
-2. To acctualy make the app work, you need to give a public key which is formed by a generator g, a private key a, and a private key k.
-3. You can manually add them, one after another, or push the center button *ALL RANDOM* which will generate random values for p,g,a,and k.
-4.After having the public and private numbers, you will be able to enter text for decryption or encryption.
-5. The text will be automatically computed and updated the moment it entered.
-6. You can encrypt and decrypt a text using the same key. Changing the key will result into having an undefined result.
