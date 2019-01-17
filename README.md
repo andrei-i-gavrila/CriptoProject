@@ -29,19 +29,16 @@ ElGamal encryption system is an asymmetric key encryption algorithm for public-k
 
 ## Algorithm
 * Key Generation - create a public key and a private key
-
-          1. Generate a large random prime *p* and a generator *g*
-          2. Select a random integer *a* 0 < k < p-1
-          3. Compute (g^a) mod p
-          4. The public key is (p,g,g^a mod p) and the private key is a
+1. Generate a large random prime *p* and a generator *g*
+2. Select a random integer *a* 0 < k < p-1
+3. Compute (g^a) mod p
+4. The public key is (p,g,g^a mod p) and the private key is a
           
 * Encryption
-
-          1. Get the public key (p,g,g^a mod p)
-          2. Represent the message (text) as a sequence of numbers m between 0 and p-1
-          3. Select a random *k* 0 < k < p-1
-          4. Compute alpha and beta: alpha = g^k mod p, beta = m*(m^a)^k mod p
-          5. Cipher test is the transformation of alpha into letters and beta into letters (each having an encryption length)
+1. Get the public key (p,g,g^a mod p)
+2. Represent the message (text) as a sequence of numbers m between 0 and p-1
+3. Select a random *k* 0 < k < p-1
+4. Compute alpha and beta: alpha = g^k mod p, beta = m*(m^a)^k mod p
+5. Cipher test is the transformation of alpha into letters and beta into letters (each having an encryption length)
 * Decryption 
-
-          1. Use the private key *a* to get the sequence of messages m such as: m = (alpha^(p-1-a)) * beta mod p
+1. Use the private key *a* to get the sequence of messages m such as: m = (alpha^(p-1-a)) * beta mod p
