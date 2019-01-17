@@ -3,6 +3,14 @@
     <v-content>
       <v-container fill-height>
         <v-layout column>
+          <v-layout row align-center justify-center>
+            <v-layout column align-center>
+              <h1>ElGamal encryption system</h1>
+              <v-radio-group row :value="elgamal.ENCRYPTED_LENGTH" label="Encryption length">
+                <v-radio v-for="n in 3" :key="n" :label="`${n}`" :value="n" @change="changeLength"></v-radio>
+              </v-radio-group>
+            </v-layout>
+          </v-layout>
           <v-layout row align-center justify-space-between>
 
             <v-layout column>
@@ -69,7 +77,8 @@
     name: 'App',
     components: {AppDescription},
     mounted() {
-      elgamal.populatePrimeNumbers()
+      this.elgamal.populatePrimeNumbers()
+      console.log(this.elgamal.ENCRYPTED_LENGTH)
     },
     data() {
       return {
@@ -82,11 +91,12 @@
 
         plainText: '',
         cipherText: '',
+        elgamal: elgamal,
       }
     },
     methods: {
       generateRandomPrime() {
-        this.p = elgamal.getRandomPrime()
+        this.p = this.elgamal.getRandomPrime()
       },
       validatePrime() {
         if (!this.validPrime) {
@@ -99,48 +109,53 @@
         }
         if (this.p !== '') {
           setTimeout(() => {
-            elgamal.getRoots(this.p).then((roots) => this.generators = roots)
+            this.elgamal.getRoots(this.p).then((roots) => this.generators = roots)
           }, 0)
         }
         return true
       },
       generateRandomGenerator() {
-        this.g = elgamal.generateRandomGenerator(this.generators)
-        this.ga = elgamal.fastPow(this.g, this.a, this.p)
+        this.g = this.elgamal.generateRandomGenerator(this.generators)
+        this.ga = this.elgamal.fastPow(this.g, this.a, this.p)
       },
       generateRandomA() {
-        this.a = elgamal.generateRandomPrivateKey(this.p)
-        this.ga = elgamal.fastPow(this.g, this.a, this.p)
+        this.a = this.elgamal.generateRandomPrivateKey(this.p)
+        this.ga = this.elgamal.fastPow(this.g, this.a, this.p)
       },
       generateRandomK() {
-        this.k = elgamal.generateRandomPrivateKey(this.p)
+        this.k = this.elgamal.generateRandomPrivateKey(this.p)
       },
       validatePrivateKey(v) {
-        if (!elgamal.isValidPrivateKey(this.p, v)) {
+        if (!this.elgamal.isValidPrivateKey(this.p, v)) {
           return "Invalid private key"
         }
         return true;
       },
       encryptText() {
-        this.cipherText = elgamal.isValidText(this.plainText) ? elgamal.encrypt(this.plainText, this.p, this.g, this.ga, this.k) : ''
+        this.cipherText = this.elgamal.isValidText(this.plainText) ? this.elgamal.encrypt(this.plainText, this.p, this.g, this.ga, this.k) : ''
 
       },
       decryptText() {
-        this.plainText = elgamal.isValidText(this.cipherText) ? elgamal.decrypt(this.cipherText, this.p, this.g, this.ga, this.a) : ''
+        this.plainText = this.elgamal.isValidText(this.cipherText) ? this.elgamal.decrypt(this.cipherText, this.p, this.g, this.ga, this.a) : ''
       },
       validText(text) {
-        if (text && !elgamal.isValidText(text)) {
+        if (text && !this.elgamal.isValidText(text)) {
           return "Only letters and spaces please"
         }
         return true
       },
       async allRandom() {
         this.generateRandomPrime()
-        this.generators = await elgamal.getRoots(this.p)
+        this.generators = await this.elgamal.getRoots(this.p)
         this.generateRandomGenerator()
         this.generateRandomA()
         this.generateRandomK()
-      }
+      },
+      changeLength(value) {
+        this.elgamal.ENCRYPTED_LENGTH = value
+        this.elgamal.primeNumbers = []
+        this.elgamal.populatePrimeNumbers()
+      },
     },
     computed: {
       publicKey() {
@@ -150,7 +165,7 @@
         return `(${this.p}, ${this.g}, ${this.ga})`
       },
       validPrime() {
-        return this.p === null || this.p === '' || elgamal.isPrime(this.p)
+        return this.p === null || this.p === '' || this.elgamal.isPrime(this.p)
       },
       disableGenerators() {
         return this.p === '' || !this.validPrime
@@ -176,5 +191,9 @@
 
   .cipherText textarea {
     text-transform: uppercase;
+  }
+
+  .centered-input input {
+    text-align: center
   }
 </style>

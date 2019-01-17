@@ -1,8 +1,8 @@
 const math = require("mathjs")
 const ALPHABET = " abcdefghijklmnopqrstuvwxyz"
-const ENCRYPTED_LENGTH = 2;
 
 export default {
+  ENCRYPTED_LENGTH: 2,
   primeNumbers: [],
 
   isPrime(x) {
@@ -10,8 +10,8 @@ export default {
   },
 
   populatePrimeNumbers() {
-    const maxPrime = math.pow(ALPHABET.length, ENCRYPTED_LENGTH) - 1;
-    for (let x = 3; x <= maxPrime; x+=2) {
+    const maxPrime = math.pow(ALPHABET.length, this.ENCRYPTED_LENGTH) - 1;
+    for (let x = 3; x <= maxPrime; x += 2) {
       if (this.isPrime(x)) {
         this.primeNumbers.push(x)
       }
@@ -64,7 +64,7 @@ export default {
 
   encryptedToLetters(number) {
     let letters = ""
-    for(let i = 0; i < ENCRYPTED_LENGTH; i++) {
+    for (let i = 0; i < this.ENCRYPTED_LENGTH; i++) {
       letters = ALPHABET[number % ALPHABET.length] + letters
       number = Math.floor(number / 27)
     }
@@ -92,14 +92,14 @@ export default {
   },
 
   decrypt(text, p, g, ga, a) {
-    while (text.length % (2 * ENCRYPTED_LENGTH) !== 0) {
+    while (text.length % (2 * this.ENCRYPTED_LENGTH) !== 0) {
       text += " "
     }
 
     let decrypted = ""
-    for (let i = 0; i < text.length; i += 2 * ENCRYPTED_LENGTH) {
-      let alpha = this.lettersToEncrypted(text.slice(i, i + ENCRYPTED_LENGTH))
-      let beta = this.lettersToEncrypted(text.slice(i + ENCRYPTED_LENGTH, i + 2 * ENCRYPTED_LENGTH))
+    for (let i = 0; i < text.length; i += 2 * this.ENCRYPTED_LENGTH) {
+      let alpha = this.lettersToEncrypted(text.slice(i, i + this.ENCRYPTED_LENGTH))
+      let beta = this.lettersToEncrypted(text.slice(i + this.ENCRYPTED_LENGTH, i + 2 * this.ENCRYPTED_LENGTH))
 
       let m = math.mod(beta * this.fastPow(alpha, p - 1 - a, p), p)
       decrypted += ALPHABET[m]
