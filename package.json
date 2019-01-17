@@ -4,22 +4,18 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "test:unit": "vue-cli-service test:unit"
+    "build": "vue-cli-service build"
   },
   "dependencies": {
-    "mathjs": "^5.2.0",
-    "vue": "^2.5.17",
-    "vuetify": "^1.2.0",
-    "vuex": "^3.0.1",
+    "mathjs": "^5.4.1",
+    "vue": "^2.5.22",
+    "vuetify": "^1.4.2",
     "merge": ">=1.2.1"
   },
   "devDependencies": {
-    "@vue/cli-plugin-unit-jest": "^3.0.1",
     "@vue/cli-service": "^3.0.1",
-    "@vue/test-utils": "^1.0.0-beta.20",
-    "vue-cli-plugin-vuetify": "^0.2.1",
-    "vue-template-compiler": "^2.5.17"
+    "vue-cli-plugin-vuetify": "^0.4.6",
+    "vue-template-compiler": "^2.5.22"
   },
   "postcss": {
     "plugins": {
