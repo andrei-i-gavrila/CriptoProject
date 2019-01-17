@@ -129,7 +129,7 @@
         this.plainText = elgamal.isValidText(this.cipherText) ? elgamal.decrypt(this.cipherText, this.p, this.g, this.ga, this.a) : ''
       },
       validText(text) {
-        if (!elgamal.isValidText(text)) {
+        if (text && !elgamal.isValidText(text)) {
           return "Only letters and spaces please"
         }
         return true

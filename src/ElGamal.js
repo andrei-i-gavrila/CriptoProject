@@ -64,7 +64,7 @@ export default {
 
   encryptedToLetters(number) {
     let letters = ""
-    while (number > 0) {
+    for(let i = 0; i < ENCRYPTED_LENGTH; i++) {
       letters = ALPHABET[number % ALPHABET.length] + letters
       number = Math.floor(number / 27)
     }
