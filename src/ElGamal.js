@@ -11,7 +11,7 @@ export default {
 
   populatePrimeNumbers() {
     const maxPrime = math.pow(ALPHABET.length, this.ENCRYPTED_LENGTH) - 1;
-    for (let x = 3; x <= maxPrime; x += 2) {
+    for (let x = 29; x <= maxPrime; x += 2) {
       if (this.isPrime(x)) {
         this.primeNumbers.push(x)
       }

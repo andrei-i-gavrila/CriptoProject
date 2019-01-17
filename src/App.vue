@@ -7,7 +7,7 @@
             <v-layout column align-center>
               <h1>ElGamal encryption system</h1>
               <v-radio-group row :value="elgamal.ENCRYPTED_LENGTH" label="Encryption length">
-                <v-radio v-for="n in 3" :key="n" :label="`${n}`" :value="n" @change="changeLength"></v-radio>
+                <v-radio v-for="n in 2" :key="n+1" :label="`${n+1}`" :value="n+1" @change="changeLength"></v-radio>
               </v-radio-group>
             </v-layout>
           </v-layout>
@@ -21,7 +21,7 @@
             <v-spacer></v-spacer>
 
             <v-layout column>
-              <v-select :disabled="disableGenerators" label="Generator g" :items="generators" v-model="g"></v-select>
+              <v-select :disabled="disableGenerators" label="Generator g" :items="generators" v-model="g" @change="setGenerator"></v-select>
               <v-btn :disabled="disableGenerators || !generators" @click="generateRandomGenerator">Select random</v-btn>
             </v-layout>
 
@@ -71,14 +71,11 @@
 
 <script>
   import elgamal from "./ElGamal"
-  import AppDescription from "./AppDescription"
 
   export default {
     name: 'App',
-    components: {AppDescription},
     mounted() {
       this.elgamal.populatePrimeNumbers()
-      console.log(this.elgamal.ENCRYPTED_LENGTH)
     },
     data() {
       return {
@@ -105,7 +102,7 @@
           this.ga = ''
           this.a = ''
           this.k = ''
-          return "Must be a prime number"
+          return "Must be a prime number > 27"
         }
         if (this.p !== '') {
           setTimeout(() => {
@@ -116,6 +113,10 @@
       },
       generateRandomGenerator() {
         this.g = this.elgamal.generateRandomGenerator(this.generators)
+        this.ga = this.elgamal.fastPow(this.g, this.a, this.p)
+      },
+      setGenerator(val) {
+        this.g = val;
         this.ga = this.elgamal.fastPow(this.g, this.a, this.p)
       },
       generateRandomA() {
@@ -165,7 +166,7 @@
         return `(${this.p}, ${this.g}, ${this.ga})`
       },
       validPrime() {
-        return this.p === null || this.p === '' || this.elgamal.isPrime(this.p)
+        return this.p === null || this.p === '' || (this.elgamal.isPrime(this.p) && this.p > 27)
       },
       disableGenerators() {
         return this.p === '' || !this.validPrime
