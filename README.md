@@ -40,3 +40,11 @@ The text should always be updated no matter what way you choose to input the tex
 * **El Gamal** 
 1. *encrypt(text,p,g,ga,k)* - encrypts a given text having access to the public key (p,g,ga mod p). Computes alpha and beta for each letter and  the cipher text will be the result of alpha number tranformed into letters, and beta number transformed into letters
 2. *decrypt(text,p,g,ga,a)* - decrypts a given text gaving acces to the public key (p,g,ga mod p). Gets the text and splits is so that it takes alpha and beta that are encrypted into 2 caracters each. After having alpha and beta it can preceed with the final computation => gets plain text.
+
+### How to use?
+1. When the page is first loaded, you will see a screen having multiple texts and buttons that are disabled.
+2. To acctualy make the app work, you need to give a public key which is formed by a generator g, a private key a, and a private key k.
+3. You can manually add them, one after another, or push the center button *ALL RANDOM* which will generate random values for p,g,a,and k.
+4.After having the public and private numbers, you will be able to enter text for decryption or encryption.
+5. The text will be automatically computed and updated the moment it entered.
+6. You can encrypt and decrypt a text using the same key. Changing the key will result into having an undefined result.
